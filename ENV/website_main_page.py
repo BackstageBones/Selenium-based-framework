@@ -17,3 +17,12 @@ class WebsiteMainPage(Environment):
                     if self.is_element_present(self.submit_button_resource_id):
                         return True
         return False
+
+    def insert_first_name(self, text):
+        self.input_text(self.first_name_resource_id, text)
+
+    def insert_last_name(self, text):
+        self.input_text(self.last_name_resource_id, text)
+
+    def click_submit_button(self):
+        self.click_element(self.submit_button_resource_id)
