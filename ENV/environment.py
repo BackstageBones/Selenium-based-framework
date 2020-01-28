@@ -40,6 +40,6 @@ class Environment(object):
 
 
 if __name__ == "__main__":
-    en = Environment(r"C:/Users/Adrian-PC/PycharmProjects/Pytest/index2.html",
+    env = Environment(r"C:/Users/Adrian-PC/PycharmProjects/Pytest/index2.html",
                      r"C:/Users/Adrian-PC/PycharmProjects/Pytest/chromedriver.exe")
-    en.open_file()
+
