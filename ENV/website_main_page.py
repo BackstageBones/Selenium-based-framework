@@ -3,8 +3,8 @@ import logging
 
 class WebsiteMainPage(Environment):
 
-    def __init__(self, file_path, chrome_path):
-        super().__init__(file_path, chrome_path)
+    def __init__(self, test_path, chrome_path):
+        super().__init__(test_path, chrome_path)
 
         self.form_resource_id = 'test-form'
         self.first_name_resource_id = "firstname-input"

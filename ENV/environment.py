@@ -7,8 +7,8 @@ class Environment(object):
     opts = ChromeOptions()
     opts.add_experimental_option("detach", True)
 
-    def __init__(self, file_path, chrome_path):
-        self.file_path = 'file://' + file_path
+    def __init__(self, test_path, chrome_path):
+        self.file_path = 'file://' + test_path
         self.driver = webdriver.Chrome(chrome_path, options=Environment.opts)
 
     def open_file(self):
@@ -39,7 +39,7 @@ class Environment(object):
         box.send_keys(Keys.ENTER)
 
 
-if __name__ == "__main__":
-    env = Environment(r"C:/Users/Adrian-PC/PycharmProjects/Pytest/index2.html",
-                     r"C:/Users/Adrian-PC/PycharmProjects/Pytest/chromedriver.exe")
+#if __name__ == "__main__":
+    #env = Environment(r"C:/Users/Adrian-PC/PycharmProjects/Pytest/index2.html",
+                    # r"C:/Users/Adrian-PC/PycharmProjects/Pytest/chromedriver.exe")
 
