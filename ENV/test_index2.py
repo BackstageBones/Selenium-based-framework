@@ -8,8 +8,8 @@ test_path = r"C:/Users/a.miendlarzewski/PycharmProjects/Pytest-Assignment/ENV/in
 chrome_path = r"C:/Users/a.miendlarzewski/PycharmProjects/Pytest-Assignment/ENV/chromedriver.exe"
 class TestClass():
 
-    @pytest.fixture(autouse=True, scope='class')
-    def open_chrome(self):
+    @pytest.fixture(scope='session')
+    def wb(self):
         wb = WebsiteMainPage(test_path,
                              chrome_path)
         # Setup (called before test)
@@ -23,6 +23,5 @@ class TestClass():
         logging.debug('done')
 
 
-    @pytest.mark.usefixtures('open_chrome')
-    def test_webpage_element_check(self):
+    def test_webpage_element_check(self, wb):
         assert wb.verify_page_elements_presence()
