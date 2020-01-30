@@ -1,3 +1,8 @@
+"""
+@author: Adrian Miendlarzewski
+@published: 30.01.2020
+"""
+
 import logging
 
 import pytest
@@ -26,11 +31,25 @@ class TestClass():
 
     @pytest.mark.usefixtures('wb')
     def test_webpage_element_check(self, wb):
+        """
+            @brief: Test case verifying important webpage elements appearing.
+            @type: Regression
+            @area: Common
+            @precond:
+                       -None
+        """
         logging.info('Check for fields occurence - Input boxes are displayed.')
         assert wb.verify_page_elements_presence()
 
     @pytest.mark.usefixtures('wb')
     def test_enter_only_incompatible_name(self, wb):
+        """
+            @brief: Test case verifying error handling.
+            @type: Regression
+            @area: Common
+            @precond:
+                       -None
+        """
         wrong_name = '#@whatever*dude'
         logging.info('Insert incorrect non-alphanumeric signs - incorrect signs entered in the name box.')
         wb.insert_first_name(wrong_name)
@@ -42,6 +61,13 @@ class TestClass():
 
     @pytest.mark.usefixtures('wb')
     def test_enter_correct_first_name_last_name(self, wb):
+        """
+           @brief: Test case verifying correct process flow.
+           @type: Regression
+           @area: Common
+           @precond:
+                      -None
+        """
         name = 'Michael'
         last_name = 'Jordan'
         logging.info('Insert correct name - regular name typed in the name box.')
@@ -54,6 +80,13 @@ class TestClass():
 
     @pytest.mark.usefixtures('wb')
     def test_enter_incompatible_surname(self, wb):
+        """
+            @brief: Test case verifying error handling.
+            @type: Regression
+            @area: Common
+            @precond:
+                       -None
+        """
         wrong_surname = '#@whatever*dude'
         logging.info('Insert incorrect non-alphanumeric signs - incorrect signs entered in the name box.')
         wb.insert_last_name(wrong_surname)
@@ -65,6 +98,13 @@ class TestClass():
 
     @pytest.mark.usefixtures('wb')
     def test_enter_last_name_only(self, wb):
+        """
+            @brief: Test case verifying error handling.
+            @type: Regression
+            @area: Common
+            @precond:
+                       -None
+        """
         name = 'Jordan'
         logging.info('Insert correct surname - regular surname typed in the name box.')
         wb.insert_first_name(name)
@@ -74,6 +114,13 @@ class TestClass():
 
     @pytest.mark.usefixtures('wb')
     def test_enter_incompatible_first_name_correct_last_name(self, wb):
+        """
+            @brief: Test case verifying error handling.
+            @type: Regression
+            @area: Common
+            @precond:
+                       -None
+        """
         wrong_name = '#@whatever*dude'
         last_name = 'Jordan'
         logging.info('Insert incorrect non-alphanumeric signs - incorrect signs entered in the name box.')
@@ -87,6 +134,13 @@ class TestClass():
 
     @pytest.mark.usefixtures('wb')
     def test_enter_correct_first_name_incorrect_last_name(self, wb):
+        """
+            @brief: Test case verifying error handling.
+            @type: Regression
+            @area: Common
+            @precond:
+                       -None
+        """
         wrong_last_name = '#@whatever*dude'
         name = 'Jordan'
         logging.info('Insert correct name - regular name typed in the name box.')
