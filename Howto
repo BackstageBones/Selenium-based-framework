@@ -6,3 +6,12 @@
 •	chrome_path = r"PUT YOUR ABSOLUT PATH TO THIS FILE HERE"
 •	In future, it will be simplified and pytest fixtures will be put in a separate place called conftest.
 •	Also main class Environment initialization will be moved outside test class.
+
+•	Download whole repository on your hard drive. Open it with any IDE capable running python,
+•	(Of course you need python installed first with all packages). Assuming you are done with it,
+•	You can run tests by entering a command inside IDE terminal with:
+•	“pytest ENV\test_index2.html “
+•	Or
+•	“pytest ENV\test_index2.html –k “NAME OF A TEST FROM TEST FILE”
+•	EXAMPLE:
+•	pytest ENV\test_index2.py -k test_enter_correct_first_name_last_name
