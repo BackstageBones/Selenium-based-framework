@@ -33,7 +33,7 @@ class Environment(object):
         else:
             return False
 
-    def input_text(self, string, resource_id) -> None:
+    def input_text(self, resource_id, string) -> None:
         box = self.driver.find_element_by_id(resource_id)
         box.send_keys(string)
         box.send_keys(Keys.ENTER)
