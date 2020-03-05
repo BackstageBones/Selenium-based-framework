@@ -3,13 +3,16 @@ import logging
 
 class WebsiteMainPage(Environment):
 
-    def __init__(self, test_path, chrome_path):
-        super().__init__(test_path, chrome_path)
+    def __init__(self):
+        self.header = self.is_element_present("header")
 
-        self.form_resource_id = 'test-form'
-        self.first_name_resource_id = "firstname-input"
-        self.last_name_resource_id = "lastname-input"
-        self.submit_button_resource_id = "submit-button"
+        super().__init__()
+
+
+        # self.form_resource_id = 'test-form'
+        # self.first_name_resource_id = "firstname-input"
+        # self.last_name_resource_id = "lastname-input"
+        # self.submit_button_resource_id = "submit-button"
 
     def verify_page_elements_presence(self) -> bool:
         logging.debug('trying to check for all visible elements')

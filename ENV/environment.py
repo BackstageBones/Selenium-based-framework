@@ -7,12 +7,10 @@ class Environment(object):
     opts = ChromeOptions()
     opts.add_experimental_option("detach", True)
 
-    def __init__(self, test_path, chrome_path):
-        self.file_path = 'file://' + test_path
-        self.driver = webdriver.Chrome(chrome_path, options=Environment.opts)
 
-    def open_file(self):
-        return self.driver.get(self.file_path)
+    def __init__(self):
+        self.driver = webdriver.Chrome(options=Environment.opts)
+
 
     def close_file(self):
         return self.driver.close()
@@ -21,8 +19,16 @@ class Environment(object):
         element = self.driver.find_element_by_id(resource_id)
         return element.is_displayed()
 
-    def verify_text(self, text) -> str:
+    def get_text(self, text) -> str:
         element = self.driver.find_element_by_link_text(text)
+        return element.text
+
+    def get_text_by_xpath(self, xpath) -> str:
+        element = self.driver.find_element_by_xpath(xpath)
+        return element.text
+
+    def get_text_by_id(self, id) -> str:
+        element = self.driver.find_element_by_id(id)
         return element.text
 
     def click_element(self, resource_id) -> bool:
@@ -39,7 +45,5 @@ class Environment(object):
         box.send_keys(Keys.ENTER)
 
 
-#if __name__ == "__main__":
-    #env = Environment(r"C:/Users/Adrian-PC/PycharmProjects/Pytest/index2.html",
-                    # r"C:/Users/Adrian-PC/PycharmProjects/Pytest/chromedriver.exe")
+
 
