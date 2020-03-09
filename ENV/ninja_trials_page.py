@@ -29,4 +29,11 @@ class NinjaTrialPage(Environment):
         self.click_element(self.button_anwser_riddle_of_stone_id)
         return self.get_text_by_id(self.riddle_of_stone_anwser_id)
 
+    def solve_riddle_of_secrets(self, text):
+        self.input_text(self.riddle_of_secrets_text_input_id, text)
+        self.click_element(self.button_riddle_of_secrets_id)
+        return self.get_text_by_id(self.riddle_of_secret_anwser_id)
+
+    #def solve_the_two_merchants_riddle(self):
+
 
