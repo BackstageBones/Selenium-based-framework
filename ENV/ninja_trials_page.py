@@ -1,4 +1,4 @@
-from .environment import Environment
+from ENV.environment import Environment
 
 
 class NinjaTrialPage(Environment):

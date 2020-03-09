@@ -1,4 +1,4 @@
-from .environment import Environment
+from ENV.environment import Environment
 import logging
 
 class WebsiteMainPage(Environment):
@@ -9,10 +9,10 @@ class WebsiteMainPage(Environment):
         super().__init__()
 
 
-        # self.form_resource_id = 'test-form'
-        # self.first_name_resource_id = "firstname-input"
-        # self.last_name_resource_id = "lastname-input"
-        # self.submit_button_resource_id = "submit-button"
+        self.form_resource_id = 'test-form'
+        self.first_name_resource_id = "firstname-input"
+        self.last_name_resource_id = "lastname-input"
+        self.submit_button_resource_id = "submit-button"
 
     def verify_page_elements_presence(self) -> bool:
         logging.debug('trying to check for all visible elements')
