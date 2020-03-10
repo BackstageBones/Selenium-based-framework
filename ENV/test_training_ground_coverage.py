@@ -3,15 +3,16 @@ import pytest
 from ENV.Generic_test_class import GenericTestClass
 
 
+
 class TestClass(GenericTestClass):
 
-    pytest.mark.usefixtures('setup_teardown')
-    def test_solve_riddle_of_stones(self, setup_teardown):
+    @pytest.mark.usefixtures('env', 'setup_teardown')
+    def test_solve_riddle_of_stones(self, env):
         global anwser
-        anwser = self.solve_riddle_of_stones('rock')
+        anwser = env.solve_riddle_of_stones('rock')
         assert anwser == 'bamboo'
 
-    pytest.mark.usefixtures('setup_teardown')
-    def test_solve_riddle_of_secrets(self):
-        anwser_check = self.solve_riddle_of_secrets(anwser)
+    @pytest.mark.usefixtures('env', 'setup_teardown')
+    def test_solve_riddle_of_secrets(self, env):
+        anwser_check = env.solve_riddle_of_secrets(anwser)
         assert anwser_check == 'Success!'

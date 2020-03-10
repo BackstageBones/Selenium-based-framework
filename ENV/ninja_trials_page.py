@@ -6,6 +6,7 @@ class NinjaTrialPage(Environment):
     def __init__(self, web_address):
         super().__init__()
         self.web_address = web_address
+        self.driver.get(web_address)
 
         self.riddle_of_stone_text_input_id = "r1Input"
         self.button_anwser_riddle_of_stone_id = "r1Btn"
