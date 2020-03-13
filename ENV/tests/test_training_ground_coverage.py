@@ -1,6 +1,6 @@
 import pytest
 
-from ENV.Generic_test_class import GenericTestClass
+from ENV.tests.Generic_test_class import GenericTestClass
 
 
 class TestClass(GenericTestClass):
