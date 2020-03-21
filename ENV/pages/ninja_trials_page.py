@@ -1,4 +1,4 @@
-from ENV.environment import  *
+from ENV.environment import Environment
 
 
 class NinjaTrialPage(Environment):
@@ -12,7 +12,7 @@ class NinjaTrialPage(Environment):
         self.button_anwser_riddle_of_stone_id = "r1Btn"
         self.riddle_of_stone_anwser_id = "passwordBanner"
         self.riddle_of_secrets_text_input_id = "r2Input"
-        self.riddle_of_secrets_button = Button(resource_id="r2Butn")
+        self.button_riddle_of_secrets_id = "r2Butn"
         self.riddle_of_secret_anwser_id = "successBanner1"
         self.the_two_merchants_jessica_xpath = "//p[text() = '3000']"
         self.the_two_merchants_bernard_xpath = "//p[text() = '2000']"
@@ -26,7 +26,7 @@ class NinjaTrialPage(Environment):
         if self.is_element_present(self.riddle_of_stone_text_input_id):
             if self.is_element_present(self.button_anwser_riddle_of_stone_id):
                 if self.is_element_present(self.riddle_of_secrets_text_input_id):
-                    if self.is_element_present(self.riddle_of_secrets_button):
+                    if self.is_element_present(self.button_riddle_of_secrets_id):
                         return True
         return False
 
@@ -37,7 +37,7 @@ class NinjaTrialPage(Environment):
 
     def solve_riddle_of_secrets(self, text):
         self.input_text(self.riddle_of_secrets_text_input_id, text)
-        self.riddle_of_secrets_button.click()
+        self.click_element(self.button_riddle_of_secrets_id)
         return self.get_text_by_id(self.riddle_of_secret_anwser_id)
 
     def solve_the_riddle_of_two_merchants(self):
