@@ -1,6 +1,6 @@
 import pytest
 
-from ENV.pages.ninja_trials_page import NinjaTrialPage
+from pages.ninja_trials_page import NinjaTrialPage
 
 
 class GenericTestClass:
