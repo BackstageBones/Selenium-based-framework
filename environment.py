@@ -1,7 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver import ChromeOptions
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
@@ -14,35 +13,60 @@ class Environment(object):
     def __init__(self):
         self.driver = webdriver.Chrome(options=Environment.opts)
         self.wait = WebDriverWait
+        self.by = By
 
     def close_file(self):
         return self.driver.close()
 
-    def is_element_present(self, resource_id) -> bool:
-        return self.wait(self.driver, 10).until(EC.visibility_of_element_located((By.ID, resource_id)))
 
-    def get_text(self, text) -> str:
-        element = self.driver.find_element_by_link_text(text)
-        return element.text
+class Button(Environment):
 
-    def get_text_by_xpath(self, xpath) -> str:
-        element = self.driver.find_element_by_xpath(xpath)
-        return element.text
+    def __init__(self, by, locator):
+        super().__init__()
+        self.by = by
+        self.source = (self.by, locator)
+        self._web_element = None
+        self._initialize()
 
-    def get_text_by_id(self, id) -> str:
-        element = self.driver.find_element_by_id(id)
-        return element.text
+    def _initialize(self) -> object:
+        self._web_element = self.wait(self.driver, 10).until(EC.element_to_be_clickable((self.source)))
+        return self._web_element
 
-    def click_element(self, resource_id) -> bool:
-        if self.is_element_present(resource_id):
-            element = self.driver.find_element_by_id(resource_id)
-            element.click()
-            return True
-        else:
-            return False
+    def click(self) -> None:
+        return self._web_element.click()
 
-    def input_text(self, resource_id, string) -> bool:
-        box = self.driver.find_element_by_id(resource_id)
-        box.send_keys(string)
-        box.send_keys(Keys.ENTER)
-        return box.text == string
+
+class WebControl(Environment):
+
+    def __init__(self, by, locator):
+        super().__init__()
+        self.by = by
+        self.source = (self.by, locator)
+        self._web_element = None
+        self._initialize()
+
+    def _initialize(self) -> object:
+        self._web_element = self.wait(self.driver, 10).until(EC.visibility_of_element_located((self.source)))
+        return self._web_element
+
+    @property
+    def get_text(self) -> str:
+        return self._web_element.text
+
+
+class InputControl(Environment):
+
+    def __init__(self, by, locator):
+        super().__init__()
+        self.by = by
+        self.source = (self.by, locator)
+        self._web_element = None
+        self._initialize()
+
+    def _initialize(self) -> object:
+        self._web_element = self.wait(self.driver, 10).until(EC.visibility_of_element_located((self.source)))
+        return self._web_element
+
+    def send_text(self, string) -> None:
+        self._web_element.clear()
+        self._web_element.send_keys(string)

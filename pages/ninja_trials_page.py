@@ -1,55 +1,52 @@
-from environment import Environment
+from environment import Environment, Button, WebControl, InputControl
 
 
 class NinjaTrialPage(Environment):
 
-    def __init__(self, web_address):
-        self.web_address = web_address
+    def __init__(self, url):
+        self.url = url
         super().__init__()
-        self.driver.get(web_address)
+        self.driver.get(self.url)
 
-        self.riddle_of_stone_text_input_id = "r1Input"
-        self.button_anwser_riddle_of_stone_id = "r1Btn"
-        self.riddle_of_stone_anwser_id = "passwordBanner"
-        self.riddle_of_secrets_text_input_id = "r2Input"
-        self.button_riddle_of_secrets_id = "r2Butn"
-        self.riddle_of_secret_anwser_id = "successBanner1"
-        self.the_two_merchants_jessica_xpath = "//p[text() = '3000']"
-        self.the_two_merchants_bernard_xpath = "//p[text() = '2000']"
-        self.the_name_of_the_richiest_merchant_id = "r3Input"
-        self.the_two_merchants_anwser_button_id = "r3Butn"
-        self.the_two_merchants_anwser_id = 'successBanner2'
-        self.check_anwsers_id = 'checkButn'
-        self.check_anwsers_output_id = 'trialCompleteBanner'
-
-    def verify_elements_presence(self) -> bool:
-        if self.is_element_present(self.riddle_of_stone_text_input_id):
-            if self.is_element_present(self.button_anwser_riddle_of_stone_id):
-                if self.is_element_present(self.riddle_of_secrets_text_input_id):
-                    if self.is_element_present(self.button_riddle_of_secrets_id):
-                        return True
-        return False
+        self.riddle_of_stone_textbox = InputControl(self.by.ID, "r1Input")
+        self.riddle_of_stone_button = Button(self.by.ID, "r1Btn")
+        self.riddle_of_stone_anwser_control = WebControl(self.by.ID, "passwordBanner")
+        self.riddle_of_secrets_textbox = InputControl(self.by.ID, "r2Input")
+        self.riddle_of_secrets_button = Button(self.by.ID, "r2Butn")
+        self.riddle_of_secret_anwser_control = WebControl(self.by.ID, "successBanner1")
+        self.the_two_merchants_jessica_control = WebControl(self.by.xpath, "//p[text() = '3000']")
+        self.the_two_merchants_bernard_control = WebControl(self.by.xpath, "//p[text() = '2000']")
+        self.the_name_of_the_richiest_merchant_textbox = InputControl(self.by.ID, "r3Input")
+        self.the_two_merchants_anwser_button = Button(self.by.ID, "r3Butn")
+        self.the_two_merchants_anwser_control = WebControl(self.by.ID, 'successBanner2')
+        self.check_all_anwsers_button = Button(self.by.ID, 'checkButn')
+        self.check_all_anwsers_output_control = WebControl(self.by.ID, 'trialCompleteBanner')
 
     def solve_riddle_of_stones(self, text):
-        self.input_text(self.riddle_of_stone_text_input_id, text)
-        self.click_element(self.button_anwser_riddle_of_stone_id)
-        return self.get_text_by_id(self.riddle_of_stone_anwser_id)
+        self.riddle_of_stone_textbox.send_text(text)
+        self.riddle_of_stone_button.click()
+        return self.riddle_of_stone_anwser_control.get_text
 
     def solve_riddle_of_secrets(self, text):
-        self.input_text(self.riddle_of_secrets_text_input_id, text)
-        self.click_element(self.button_riddle_of_secrets_id)
-        return self.get_text_by_id(self.riddle_of_secret_anwser_id)
+        self.riddle_of_secrets_textbox.send_text(text)
+        self.riddle_of_secrets_button.click()
+        return self.riddle_of_secret_anwser_control.get_text
 
     def solve_the_riddle_of_two_merchants(self):
-        jessica = self.get_text_by_xpath(self.the_two_merchants_jessica_xpath)
-        bernard = self.get_text_by_xpath(self.the_two_merchants_bernard_xpath)
+        jessica = self.the_two_merchants_jessica_control.get_text
+        bernard = self.the_two_merchants_bernard_control.get_text
         if int(bernard) > int(jessica):
-            self.input_text(self.the_name_of_the_richiest_merchant_id, 'Bernard')
+            self.the_name_of_the_richiest_merchant_textbox.send_text('Bernard')
         else:
-            self.input_text(self.the_name_of_the_richiest_merchant_id, 'Jessica')
-        self.click_element(self.the_two_merchants_anwser_button_id)
-        return self.get_text_by_id(self.the_two_merchants_anwser_id)
+            self.the_name_of_the_richiest_merchant_textbox.send_text('Jessica')
+        self.the_two_merchants_anwser_button.click()
+        return self.the_two_merchants_anwser_control.get_text
 
     def check_all_the_anwsers(self):
-        self.click_element(self.check_anwsers_id)
-        return self.get_text_by_id(self.check_anwsers_output_id)
+        self.check_all_anwsers_button.click()
+        return self.check_all_anwsers_output_control.get_text
+
+
+# env = NinjaTrialPage('https://techstepacademy.com/trial-of-the-stones')
+print(InputControl.__mro__)
+

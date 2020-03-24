@@ -6,15 +6,10 @@ from pages.ninja_trials_page import NinjaTrialPage
 class GenericTestClass:
 
     @pytest.fixture()
-    def env(self):
-        env = NinjaTrialPage('https://techstepacademy.com/trial-of-the-stones')
-        return env
-
-    @pytest.fixture()
-    def setup_teardown(self, env):
+    def setup_teardown(self):
         # setup
-        env.verify_elements_presence()
-
+        website = NinjaTrialPage('https://techstepacademy.com/trial-of-the-stones')
+        website.open_page()
         yield
         # teardown
-        env.close_file()
+        website.close_file()
