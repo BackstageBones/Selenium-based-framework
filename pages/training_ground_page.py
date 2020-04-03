@@ -1,7 +1,7 @@
-from environment import Environment
+from basepage import BasePage
 import logging
 
-class WebsiteMainPage(Environment):
+class WebsiteMainPage(BasePage):
 
     def __init__(self):
         self.header = self.is_element_present("header")
