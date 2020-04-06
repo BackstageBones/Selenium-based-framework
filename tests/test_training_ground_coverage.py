@@ -18,7 +18,7 @@ class TestClass(GenericTestClass):
 
     @pytest.mark.usefixtures('setup_teardown')
     def test_solve_the_two_merchants_riddle(self, website):
-        anwser_check = website.solve_the_riddle_of_two_merchants()
+        anwser_check = website.solve_the_riddle_of_two_merchants('Bernard','Jessica')
         assert anwser_check == 'Success!'
 
     @pytest.mark.usefixtures('setup_teardown')

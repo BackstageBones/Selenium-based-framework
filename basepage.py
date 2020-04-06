@@ -28,12 +28,14 @@ class BasePage(object):
 
 class BaseElement:
 
-    def __init__(self, driver, by, locator):
+    def __init__(self, driver, by, locator, visible=True):
         self.driver = driver
         self.by = by
         self.source = (self.by, locator)
         self._web_element = None
-        self._initialize()
+        self.visible = visible
+        if self.visible:
+            self._initialize()
 
     def _initialize(self) -> object:
         self._web_element = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(self.source))
@@ -45,8 +47,12 @@ class BaseElement:
 
     @property
     def get_text(self) -> str:
+        if not self.visible:
+            self._initialize()
         return self._web_element.text
 
     def send_text(self, string) -> None:
+        if not self.visible:
+            self._initialize()
         self._web_element.clear()
         self._web_element.send_keys(string)
