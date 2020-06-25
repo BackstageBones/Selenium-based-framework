@@ -27,7 +27,11 @@ class TestClass(GenericTestClass):
         assert anwser == 'bamboo'
         secrets_anwser = website.solve_riddle_of_secrets(anwser)
         assert secrets_anwser == 'Success!'
-        anwser_check = website.solve_the_riddle_of_two_merchants()
+        anwser_check = website.solve_the_riddle_of_two_merchants('Bernard','Jessica')
         assert anwser_check == 'Success!'
         finall_anwser = website.check_all_the_anwsers()
         assert finall_anwser == 'Trial Complete'
+
+    @pytest.mark.usefixtures('setup_teardown')
+    def test_browser_navigation(self, website):
+        website.navigate_to_home_tab()

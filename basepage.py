@@ -22,8 +22,17 @@ class BasePage(object):
     def _open_webpage(self):
         return self.driver.get(self.url)
 
+    @property
     def _verify_header(self):
         return self.driver.title
+
+    def _verify_url(self):
+        return self.driver.current_url == self.url
+
+    def set_next_page(self, next_page=None) -> object:
+        self.__class__ = next_page.__class__
+        self.__dict__ = next_page.__dict__
+        return next_page
 
 
 class BaseElement:
