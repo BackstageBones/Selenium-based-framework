@@ -29,10 +29,15 @@ class BasePage(object):
     def _verify_url(self):
         return self.driver.current_url == self.url
 
-    def set_next_page(self, next_page=None) -> object:
-        self.__class__ = next_page.__class__
-        self.__dict__ = next_page.__dict__
-        return next_page
+    def set_next_page(self, trigger, next_page=None) -> object:
+        try:
+            trigger.click()
+        except AttributeError:
+            return f"object {trigger} is not clickable"
+        else:
+            self.__class__ = next_page.__class__
+            self.__dict__ = next_page.__dict__
+            return next_page
 
 
 class BaseElement:

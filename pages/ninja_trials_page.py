@@ -5,9 +5,9 @@ from pages.tech_step_home_page import TechStepHomePage
 class NinjaTrialPage(BasePage):
     url = 'https://techstepacademy.com/trial-of-the-stones'
 
-    def __init__(self, url):
-        self.url = url
-        super().__init__(url)
+    def __init__(self):
+        self.url = NinjaTrialPage.url
+        super().__init__(self.url)
         self._verify_url()
 
         self.riddle_of_stone_textbox = BaseElement(self.driver, self.by.ID, "r1Input")
@@ -51,7 +51,7 @@ class NinjaTrialPage(BasePage):
         return self.check_all_anwsers_output_control.get_text
 
     def navigate_to_home_tab(self):
-        self.Home_tab.click()
-        self.set_next_page(next_page=TechStepHomePage('https://techstepacademy.com/'))
+        self.set_next_page(trigger=self.Home_tab, next_page=TechStepHomePage('https://techstepacademy.com/'))
+        return self
 
 

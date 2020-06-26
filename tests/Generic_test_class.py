@@ -8,7 +8,7 @@ class GenericTestClass:
 
     @pytest.fixture()
     def website(self):
-        website = NinjaTrialPage('https://techstepacademy.com/trial-of-the-stones')
+        website = NinjaTrialPage()
         return website
 
     @pytest.fixture()
