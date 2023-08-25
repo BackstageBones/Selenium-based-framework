@@ -1,4 +1,5 @@
-from basepage import BasePage, BaseElement
+from pages.basepage import BasePage
+
 
 class TechStepHomePage(BasePage):
 

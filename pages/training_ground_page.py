@@ -1,4 +1,4 @@
-from basepage import BasePage
+from pages.basepage import BasePage
 import logging
 
 class WebsiteMainPage(BasePage):
