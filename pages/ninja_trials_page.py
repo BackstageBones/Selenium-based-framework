@@ -16,6 +16,7 @@ class NinjaTrialPage(BasePage):
         :param text: text to send in to the textfield
         :return: string with riddle answer
         """
+        self.actions.scroll_to_element(NinjaTrialsLocators.riddle_of_stone_textbox)
         self.actions.send_text(NinjaTrialsLocators.riddle_of_stone_textbox, text)
         self.actions.click_element(NinjaTrialsLocators.riddle_of_stone_button)
 
@@ -25,6 +26,7 @@ class NinjaTrialPage(BasePage):
                 NinjaTrialsLocators.riddle_of_stone_answer_control, timeout=4)
         except (NoSuchElementException, TimeoutException):
             return ""
+        self.actions.scroll_to_element(answer)
         return answer.text.strip()
 
     def solve_riddle_of_secrets(self, text: str) -> str:
@@ -37,7 +39,9 @@ class NinjaTrialPage(BasePage):
         self.actions.click_element(NinjaTrialsLocators.riddle_of_secrets_button)
 
     def get_riddle_of_secrets_answer(self) -> str:
-        return self.actions.wait_for_element_visible(NinjaTrialsLocators.riddle_of_secret_answer_control).text.strip()
+        answer = self.actions.wait_for_element_visible(NinjaTrialsLocators.riddle_of_secret_answer_control)
+        self.actions.scroll_to_element(answer)
+        return answer.text.strip()
 
     def solve_the_riddle_of_two_merchants(self, first_merchant, second_merchant):
         jessica = self.the_two_merchants_jessica_control.get_text

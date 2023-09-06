@@ -38,10 +38,7 @@ class SeleniumActions:
         element.clear()
         element.send_keys(text)
 
-    def scroll_to_element(self, element: any) -> None:
-        if isinstance(element, WebElement):
-            actions = ActionChains(self.driver)
-            actions.move_to_element(element).perform()
-        else:
-            self.driver.execute_script("arguments[0].scrollIntoView();", element)
-
+    def scroll_to_element(self, locator: any) -> None:
+        if not isinstance(locator, WebElement):
+            locator = self.find_element(locator)
+        self.driver.execute_script("arguments[0].scrollIntoView();", locator)
