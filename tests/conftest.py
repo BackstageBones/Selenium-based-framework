@@ -33,3 +33,9 @@ def driver_init(request):
     yield
     web_driver.close()
     web_driver.quit()
+
+
+@pytest.fixture(scope="class")
+def open_ninja_trials_page(request):
+    request.cls.driver.get('https://techstepacademy.com/trial-of-the-stones')
+    request.cls.driver.maximize_window()
