@@ -1,3 +1,5 @@
+from selenium.common import NoSuchElementException, TimeoutException
+
 from locators.ninja_trials_locators import NinjaTrialsLocators
 from pages.basepage import BasePage
 
@@ -18,7 +20,12 @@ class NinjaTrialPage(BasePage):
         self.actions.click_element(NinjaTrialsLocators.riddle_of_stone_button)
 
     def get_riddle_of_stones_answer(self) -> str:
-        return self.actions.wait_for_element_visible(NinjaTrialsLocators.riddle_of_stone_answer_control).text.strip()
+        try:
+            answer = self.actions.wait_for_element_visible(
+                NinjaTrialsLocators.riddle_of_stone_answer_control, timeout=4)
+        except (NoSuchElementException, TimeoutException):
+            return ""
+        return answer.text.strip()
 
     def solve_riddle_of_secrets(self, text: str) -> str:
         """

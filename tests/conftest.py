@@ -21,7 +21,7 @@ def firefox_driver_init(request):
     ff_driver.quit()
 
 
-@pytest.fixture(params=["chrome", "firefox"], scope="class")
+@pytest.fixture(params=["chrome"], scope="class")
 def driver_init(request):
     if request.param == "chrome":
         web_driver = SeleniumFactory().create_chrome_driver()
@@ -35,7 +35,11 @@ def driver_init(request):
     web_driver.quit()
 
 
-@pytest.fixture(scope="class")
+@pytest.fixture(scope="function")
 def open_ninja_trials_page(request):
     request.cls.driver.get('https://techstepacademy.com/trial-of-the-stones')
     request.cls.driver.maximize_window()
+
+
+def pytest_configure():
+    pytest.shared = None

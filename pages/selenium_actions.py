@@ -1,3 +1,4 @@
+from selenium.webdriver import ActionChains
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.remote.webdriver import WebElement
@@ -27,8 +28,8 @@ class SeleniumActions:
         )
         element.click()
 
-    def wait_for_element_visible(self, locator: any) -> WebElement:
-        return WebDriverWait(self.driver, timeout=SeleniumActions.DEFAULT_TIMEOUT).until(
+    def wait_for_element_visible(self, locator: any, timeout=DEFAULT_TIMEOUT) -> WebElement:
+        return WebDriverWait(self.driver, timeout=timeout).until(
             ec.visibility_of_element_located(locator)
         )
 
@@ -36,3 +37,11 @@ class SeleniumActions:
         element = self.wait_for_element_visible(locator)
         element.clear()
         element.send_keys(text)
+
+    def scroll_to_element(self, element: any) -> None:
+        if isinstance(element, WebElement):
+            actions = ActionChains(self.driver)
+            actions.move_to_element(element).perform()
+        else:
+            self.driver.execute_script("arguments[0].scrollIntoView();", element)
+
