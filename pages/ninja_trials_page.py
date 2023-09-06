@@ -1,40 +1,47 @@
-from basepage import BasePage, BaseElement
-from pages.tech_step_home_page import TechStepHomePage
+from selenium.common import NoSuchElementException, TimeoutException
+
+from locators.ninja_trials_locators import NinjaTrialsLocators
+from pages.basepage import BasePage
 
 
 class NinjaTrialPage(BasePage):
     url = 'https://techstepacademy.com/trial-of-the-stones'
 
-    def __init__(self):
-        self.url = NinjaTrialPage.url
-        super().__init__(self.url)
-        self._verify_url()
+    def __init__(self, driver):
+        super().__init__(driver)
 
-        self.riddle_of_stone_textbox = BaseElement(self.driver, self.by.ID, "r1Input")
-        self.riddle_of_stone_button = BaseElement(self.driver, self.by.ID, "r1Btn")
-        self.riddle_of_stone_anwser_control = BaseElement(self.driver, self.by.ID, "passwordBanner", visible=False)
-        self.riddle_of_secrets_textbox = BaseElement(self.driver, self.by.ID, "r2Input")
-        self.riddle_of_secrets_button = BaseElement(self.driver, self.by.ID, "r2Butn")
-        self.riddle_of_secret_anwser_control = BaseElement(self.driver, self.by.ID, "successBanner1", visible=False)
-        self.the_two_merchants_jessica_control = BaseElement(self.driver, self.by.XPATH, "//p[text() = '3000']")
-        self.the_two_merchants_bernard_control = BaseElement(self.driver, self.by.XPATH, "//p[text() = '2000']")
-        self.the_name_of_the_richiest_merchant_textbox = BaseElement(self.driver, self.by.ID, "r3Input")
-        self.the_two_merchants_anwser_button = BaseElement(self.driver, self.by.ID, "r3Butn")
-        self.check_all_anwsers_button = BaseElement(self.driver, self.by.ID, 'checkButn')
-        self.the_two_merchants_anwser_control = BaseElement(self.driver, self.by.ID, 'successBanner2', visible=False)
-        self.check_all_anwsers_output_control = BaseElement(self.driver, self.by.ID, 'trialCompleteBanner',
-                                                            visible=False)
-        self.Home_tab = BaseElement(self.driver, self.by.ID, "lower-logo")
+    def solve_riddle_of_stones(self, text: str) -> str:
+        """
+        Sends text to the first riddle and retrieves answer
+        :param text: text to send in to the textfield
+        :return: string with riddle answer
+        """
+        self.actions.scroll_to_element(NinjaTrialsLocators.riddle_of_stone_textbox)
+        self.actions.send_text(NinjaTrialsLocators.riddle_of_stone_textbox, text)
+        self.actions.click_element(NinjaTrialsLocators.riddle_of_stone_button)
 
-    def solve_riddle_of_stones(self, text):
-        self.riddle_of_stone_textbox.send_text(text)
-        self.riddle_of_stone_button.click()
-        return self.riddle_of_stone_anwser_control.get_text
+    def get_riddle_of_stones_answer(self) -> str:
+        try:
+            answer = self.actions.wait_for_element_visible(
+                NinjaTrialsLocators.riddle_of_stone_answer_control, timeout=4)
+        except (NoSuchElementException, TimeoutException):
+            return ""
+        self.actions.scroll_to_element(answer)
+        return answer.text.strip()
 
-    def solve_riddle_of_secrets(self, text):
-        self.riddle_of_secrets_textbox.send_text(text)
-        self.riddle_of_secrets_button.click()
-        return self.riddle_of_secret_anwser_control.get_text
+    def solve_riddle_of_secrets(self, text: str) -> str:
+        """
+        Sends text to the second riddle and retrieves answer
+        :param text: text to send as answer
+        :return: string with riddle answer
+        """
+        self.actions.send_text(NinjaTrialsLocators.riddle_of_secrets_textbox, text)
+        self.actions.click_element(NinjaTrialsLocators.riddle_of_secrets_button)
+
+    def get_riddle_of_secrets_answer(self) -> str:
+        answer = self.actions.wait_for_element_visible(NinjaTrialsLocators.riddle_of_secret_answer_control)
+        self.actions.scroll_to_element(answer)
+        return answer.text.strip()
 
     def solve_the_riddle_of_two_merchants(self, first_merchant, second_merchant):
         jessica = self.the_two_merchants_jessica_control.get_text
@@ -49,9 +56,3 @@ class NinjaTrialPage(BasePage):
     def check_all_the_anwsers(self):
         self.check_all_anwsers_button.click()
         return self.check_all_anwsers_output_control.get_text
-
-    def navigate_to_home_tab(self):
-        self.set_next_page(trigger=self.Home_tab, next_page=TechStepHomePage('https://techstepacademy.com/'))
-        return self
-
-
