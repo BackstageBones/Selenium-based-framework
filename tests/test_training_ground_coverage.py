@@ -10,7 +10,7 @@ class TestsTrainingGround:
     @pytest.mark.parametrize(
         "answer, expected_value",
         [
-            pytest.param("rock", "bamboo", marks=pytest.mark.basic),
+            pytest.param("rock", "bamboo"),
             pytest.param("stone", "", marks=pytest.mark.xfail)
 
         ]
@@ -24,7 +24,7 @@ class TestsTrainingGround:
 
     @pytest.mark.parametrize("correct_answer, expected_condition",
                              [
-                                 pytest.param("rock", "Success!", marks=pytest.mark.basic)
+                                 pytest.param("rock", "Success!")
                              ])
     def test_solve_riddle_of_secrets(self, correct_answer, expected_condition):
         ninja_page = NinjaTrialPage(self.driver)

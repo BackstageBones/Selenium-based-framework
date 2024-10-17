@@ -14,17 +14,18 @@ class TestUrlChrome(BasicChromeTest):
 
     @pytest.mark.parametrize("test_browser, test_url",
                              [
-                                 pytest.param("chrome", "https://www.lambdatest.com/", marks=pytest.mark.basic),
-                                 pytest.param("firefox", "https://www.lambdatest.com/blog/", marks=pytest.mark.basic),
-                                 pytest.param("safari", "https://www.lambdatest.com/blog/", marks=pytest.mark.skip),
+                                 pytest.param("chrome", "https://www.lambdatest.com/"),
+                                 pytest.param("firefox", "https://www.lambdatest.com/blog/"),
+                                 pytest.param("safari", "https://www.lambdatest.com/blog/",
+                                              marks=pytest.mark.skipif(True, reason="Unsupported browser")),
                              ]
                              )
     def test_open_url_v2(self, test_browser, test_url):
         if test_browser == "chrome":
-            expected_title = "Next-Generation Mobile Apps and Cross Browser Testing Cloud | LambdaTest"
+            expected_title = "Power Your Software Testing with AI and Cloud | LambdaTest"
 
         if test_browser == "firefox":
-            expected_title = "LambdaTest | A Cross Browser Testing Blog"
+            expected_title = "LambdaTest Blogs"
         self.driver.get(test_url)
         assert expected_title == self.driver.title
 

@@ -11,11 +11,14 @@ class SeleniumFactory:
     def set_chrome_options(self):
         options = ChromiumOptions()
         options.add_argument("--start-maximized")
+        options.add_argument("--headless=new")
         options.add_argument("--disable-extensions")
         options.add_argument("--no-sandbox")
         options.add_argument("disable-infobars")
         options.add_argument("enableNetwork")
         options.add_argument("--ignore-certificate-errors")
+        options.add_argument("--disable-gpu")
+        options.add_argument("--disable-dev-shm-usage")
         options.add_experimental_option("prefs", self.set_browser_preferences())
         options.set_capability("cloud:options", self.set_desired_capabilities())
         return options
