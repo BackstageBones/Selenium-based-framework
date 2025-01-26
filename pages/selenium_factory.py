@@ -23,13 +23,18 @@ class SeleniumFactory:
         options.add_argument("--ignore-certificate-errors")
         options.add_argument("--disable-gpu")
         options.add_argument("--disable-dev-shm-usage")
+        options.add_argument("--user-data-dir=/tmp/unique_dir")
         options.add_experimental_option("prefs", SeleniumFactory.set_browser_preferences())
         options.set_capability("cloud:options", SeleniumFactory.set_desired_capabilities())
         return options
 
     @staticmethod
     def set_mobile_options(options):
+        options.add_argument("--no-sandbox")
         options.add_argument("--headless=new")
+        options.add_argument("--disable-gpu")
+        options.add_argument("--disable-dev-shm-usage")
+        options.add_argument("--user-data-dir=/tmp/unique_dir")
         mobile_emulation = {
             "deviceMetrics": {"width": 360, "height": 640, "pixelRatio": 3.0, "touch": True, "mobile": True},
             "userAgent": "Mozilla/5.0 (Linux; Android 11; SM-G977U Build/RP1A.200720.012; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/83.0.4103.106 Mobile Safari/537.36",

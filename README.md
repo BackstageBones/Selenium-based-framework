@@ -11,10 +11,10 @@ repository consist of three folders:
 ### Using docker ###
 
 Step 1: Build the Docker image
-docker build -t selenium-tests .
+ docker build -t selenium-tests . 
 
 Step 2: Run the Docker container
-docker run --rm selenium-tests
+docker run --rm -p 4040:4040 selenium-tests
 
 
 ### manual run ###
