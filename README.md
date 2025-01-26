@@ -14,7 +14,8 @@ Step 1: Build the Docker image
  docker build -t selenium-tests . 
 
 Step 2: Run the Docker container
-docker run --rm -p 4040:4040 selenium-tests
+docker run docker-compose up
+open http://localhost:5252/allure-docker-service-ui/projects/default
 
 
 ### manual run ###
