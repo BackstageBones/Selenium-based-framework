@@ -9,10 +9,12 @@ repository consist of three folders:
 
 ## Installation guide ##
 ### Using docker ###
-simply run \
-`docker compose -f tests-compose.yaml up -d
-` \
-open http://localhost:5252 to see allure test report
+
+Step 1: Build the Docker image
+docker build -t selenium-tests .
+
+Step 2: Run the Docker container
+docker run --rm selenium-tests
 
 
 ### manual run ###
