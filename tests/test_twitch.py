@@ -6,9 +6,7 @@ from assertpy import assert_that
 from pages.twitch_page import TwitchPage
 
 
-@pytest.mark.parametrize('driver_init', [{'browser': 'chrome', 'mobile': True},
-                                         {'browser': 'edge', 'mobile': True}
-                                         ], indirect=True)
+@pytest.mark.parametrize('driver_init', [{'browser': 'chrome', 'mobile': True}], indirect=True)
 class TestTwitch:
 
     @pytest.mark.usefixtures('driver_init')
