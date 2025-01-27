@@ -12,7 +12,7 @@ class TestTwitch:
     @allure.title("Test Twitch stream preview")
     @allure.description(
         "This test attempts to open starcraft II stream preview.\n Fails if any error happens.")
-    @allure.tag("NewUI", "Essentials", "Authentication")
+    @allure.tag("StarCraft II", "Twitch", "Sporty")
     @allure.severity(allure.severity_level.CRITICAL)
     @allure.label("owner", "Adrian Miendlarzewski")
     @allure.link("https://github.com/BackstageBones/Selenium-based-framework/tree/twitch-preview", name="repository")
