@@ -34,3 +34,7 @@ class TestTwitch:
                     "Stream preview not visible").is_true()
         png_name = 'stream_evidence_{}.png'.format(datetime.now().strftime('%Y%m%d_%H%M%S'))
         self.driver.save_screenshot(png_name)
+        allure.attach.file(
+            png_name,
+            name="stream-screenshot",
+            attachment_type=allure.attachment_type.PNG)
