@@ -1,5 +1,5 @@
 from datetime import datetime
-
+import allure
 import pytest
 from assertpy import assert_that
 
@@ -9,6 +9,15 @@ from pages.twitch_page import TwitchPage
 @pytest.mark.parametrize('driver_init', [{'browser': 'chrome', 'mobile': True}], indirect=True)
 class TestTwitch:
 
+    @allure.title("Test Twitch stream preview")
+    @allure.description(
+        "This test attempts to open starcraft II stream preview.\n Fails if any error happens.")
+    @allure.tag("NewUI", "Essentials", "Authentication")
+    @allure.severity(allure.severity_level.CRITICAL)
+    @allure.label("owner", "Adrian Miendlarzewski")
+    @allure.link("https://github.com/BackstageBones/Selenium-based-framework/tree/twitch-preview", name="repository")
+    @allure.issue("some test issue")
+    @allure.testcase("some test case")
     @pytest.mark.usefixtures('driver_init')
     def test_stream_preview(self):
         tw_page = TwitchPage(self.driver)
