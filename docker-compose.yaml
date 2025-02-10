@@ -1,0 +1,41 @@
+
+services:
+  selenium-tests:
+    image: python:latest
+    container_name: selenium-tests
+    working_dir: /app
+    volumes:
+      - .:/app
+      - allure-results:/allure-results
+    command: >
+      sh -c "
+      pip install --no-cache-dir -r requirements.txt &&
+      apt-get update && apt-get install -y chromium chromium-driver openjdk-17-jdk-headless &&
+      pytest --alluredir=/allure-results ./tests"
+
+    depends_on:
+      - allure-server
+
+  allure-server:
+    image: frankescobar/allure-docker-service
+    container_name: allure-server
+    environment:
+      CHECK_RESULTS_EVERY_SECONDS: 10
+      KEEP_HISTORY: 5
+      KEEP_HISTORY_LATEST: 25
+    ports:
+      - 5050:5050
+    volumes:
+      - allure-results:/app/allure-results
+      - allure-reports:/app/default-reports
+  allure-ui:
+    image: "frankescobar/allure-docker-service-ui"
+    environment:
+      ALLURE_DOCKER_PUBLIC_API_URL: "http://localhost:5050"
+      ALLURE_DOCKER_PUBLIC_API_URL_PREFIX: ""
+    ports:
+      - 5252:5252
+
+volumes:
+  allure-results:
+  allure-reports:

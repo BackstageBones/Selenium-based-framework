@@ -9,10 +9,9 @@ repository consist of three folders:
 
 ## Installation guide ##
 ### Using docker ###
-simply run \
-`docker compose -f tests-compose.yaml up -d
-` \
-open http://localhost:5252 to see allure test report
+
+`docker run docker-compose up` \
+open http://localhost:5252/allure-docker-service-ui/projects/default
 
 
 ### manual run ###
